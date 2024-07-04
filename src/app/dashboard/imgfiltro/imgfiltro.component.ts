@@ -3,6 +3,7 @@ import { Post2 } from '../post2';
 import { PostService } from '../post.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { MaterialModule } from '../../app-meterial/app-meterial.module';
+import { CommonModule } from '@angular/common'; 
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -26,25 +27,29 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-imgfiltro',
   standalone: true,
-  imports: [MaterialModule,RouterOutlet],
+  imports: [MaterialModule,RouterOutlet,CommonModule],
   templateUrl: './imgfiltro.component.html',
   styleUrl: './imgfiltro.component.css'
 })
 export class ImgfiltroComponent {
   displayedColumns: string[] = ['albumId','id','title','url','thumbnailUrl'];
   /*dataSource = ELEMENT_DATA;*/
-  post2s:Post2[]=[]
+  post2s:Post2[]=[];
   constructor(private postService: PostService,
     private route: ActivatedRoute,
     private router: Router){
   }
   ngOnInit(): void {
-    this.postService.getAllPosts2()
+    this.postService.getAllImgs()
     .subscribe((data) => {
       console.log(data);
-      this.post2s=data;
-      
-    })
+      this.post2s = data.filter(post => {
+        return post.title.startsWith('a') || post.title.startsWith('r') || post.title.startsWith('s');
+      });
+    });
+
   
   }
+
+  
 }

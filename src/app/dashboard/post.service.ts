@@ -13,7 +13,7 @@ export class PostService {
   getAllPosts():Observable<Post[]>{
     return this.httpClient.get<Post[]>("https://rickandmortyapi.com/api/episode");
   }
-  getAllPosts2():Observable<Post2[]>{
+  getAllImgs():Observable<Post2[]>{
     return this.httpClient.get<Post2[]>("https://jsonplaceholder.typicode.com/photos");
   }
 
